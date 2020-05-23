@@ -1,0 +1,62 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = () => {
+    const course = 'Half Stack application development'
+    const parts = [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7
+        },
+        {
+          name: 'State of a component',
+          exercises: 14
+        }
+      ]
+
+  
+    return (
+      <div>
+        <Header name = {course}/>
+        <Content arr = {parts} />
+        <Total size = {parts[0].exercises.exercises + parts[1].exercises.exercises + parts[2].exercises.exercises} />
+      </div>
+    )
+  }
+
+
+  const Header = (props) => {
+    return(
+        <h1>{props.name}</h1>
+    )
+}
+
+const Content = (props) => {
+    return(
+        <div>
+            <Part obj = {props.arr[0]}></Part>
+            <Part obj = {props.arr[1]}></Part>
+            <Part obj = {props.arr[2]}></Part>
+        </div>
+    )
+}
+
+const Part = (props) => {
+    return(
+        <p>
+            {props.obj.name} {props.obj.exercises}
+        </p>
+    )
+}
+
+const Total = (props) => {
+    return(
+        <p>Number of exercises {props.size}</p>
+    )
+}
+
+ReactDOM.render(<App />,document.getElementById('root'))
