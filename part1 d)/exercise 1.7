@@ -22,15 +22,17 @@ const App = () => {
   const calTotal = () => {
     setTotal(total+1)
   }
-
+  
   const calAvg = (num) => {
     setAvgtol(avgtol+num)
-    setAvg(avgtol/total)
+    
+    setAvg((avgtol+num)/(total+1))
+    console.log(avgtol,postol)
   }
 
   const calPositive = (num) => {
     setPostol(postol+num)
-    setPositive(postol/total)
+    setPositive((postol+num)*100/(total+1))
   }
 
   return (
