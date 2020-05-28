@@ -1,0 +1,94 @@
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const Button = ({func,text}) => {
+    return(
+        <button onClick={func}>{text}</button>
+    )
+}
+
+const Statistic = ({text, val}) => <p>{text} {val}</p>
+
+
+const Statistics = (props) => {
+  if(props.total > 0){
+    return(
+      <div>
+        <h1>statistics</h1>
+        <Statistic text="good" val={props.good} />
+        <Statistic text="neutral" val={props.neutral} />
+        <Statistic text="bad" val={props.bad} />
+        <Statistic text="all" val={props.total} />
+        <Statistic text="average" val={props.avg} />
+        <Statistic text="positive" val={props.positive} />
+      </div>
+    )
+  }
+  return(
+    <div>
+      <h1>statistics</h1>
+      <p>No feedback given</p>
+    </div>
+    
+  )
+}
+
+const App = () => {
+  // save clicks of each button to own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const [total , setTotal] = useState(0)
+  const [avg , setAvg] = useState(0)
+  const [positive, setPositive] = useState(0)
+  const [avgtol, setAvgtol] = useState(0)
+  const [postol, setPostol] = useState(0)
+
+  
+
+  const calTotal = () => {
+    
+    setTotal(total+1)
+  }
+
+  const calAvg = (num) => {
+    setAvgtol(avgtol+num)
+    
+    setAvg((avgtol+num)/(total+1))
+    console.log(avgtol,postol)
+  }
+
+  const calPositive = (num) => {
+    setPostol(postol+num)
+    setPositive((postol+num)*100/(total+1))
+  }
+
+  return (
+    <div>
+        <div>
+            <h1>give feedback</h1>
+            <Button func= {() =>{ setGood(good+1)
+                                  calTotal()
+                                  calAvg(1)
+                                  calPositive(1)
+                                }} text='good' />
+            <Button func= {() => {setNeutral(neutral+1)
+                                  calTotal()
+                                  calAvg(0)
+                                  calPositive(0)
+                                  }} text='neutral' />
+            <Button func= {() => {setBad(bad+1)
+                                  calTotal()
+                                  calAvg(-1)
+                                  calPositive(0)
+                                  }} text='bad' />
+        </div>
+        <Statistics good={good} neutral={neutral} bad={bad} total={total} avg={avg} positive={positive+"%"} />
+        
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, 
+  document.getElementById('root')
+)
