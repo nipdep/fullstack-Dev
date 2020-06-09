@@ -1,0 +1,21 @@
+// course.js
+
+import React from 'react';
+import Header from './header';
+import Content from './content';
+
+const Course = ({course}) => {
+
+    return(
+        <div>
+            {course.map(section =>  
+                <div key={section.id}>
+                    <Header header={section.name}/>
+                    <Content content={section.parts} />
+                </div>
+            )}
+        </div>
+    )
+}
+
+export default Course
