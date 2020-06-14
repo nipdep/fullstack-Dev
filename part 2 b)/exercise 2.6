@@ -1,0 +1,52 @@
+// app.js
+
+import React, { useState } from 'react'
+
+const App = () => {
+  const [ persons, setPersons ] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
+  const [ newName, setNewName ] = useState('')
+
+  // eslint-disable-next-line no-const-assign
+
+  const addName = (event) => {
+      event.preventDefault()
+      setPersons(persons.concat({
+          name: newName}))
+      console.log(persons)
+  }
+
+  const Contact = ({names}) => {
+      let ind = 0
+      return(
+      <div>
+          {names.map(person => <p key={ind++}>{person.name}</p> )}
+      </div>
+      )}
+  
+
+  const handleNameChange= (event) => {
+    setNewName(event.target.value)
+  }
+
+  return (
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={addName}>
+        <div>
+          name: <input 
+          value={newName}
+          onChange= {handleNameChange}/>
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
+      <Contact names={persons} />
+    </div>
+  )
+}
+
+export default App
